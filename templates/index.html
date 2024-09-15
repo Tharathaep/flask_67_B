@@ -1,0 +1,47 @@
+{% extends "base_template.html" %}
+
+{% block title %}
+<title>List - Flower</title>
+{% endblock %}
+
+{% block content %}
+<h1>Flower List</h1>
+
+{% if alert_message.status == "success" %}
+    <div class="alert alert-success" role ="alert">
+        {{ alert_message.message }}
+    </div>
+{% endif %}
+{% if alert_message.status == "fail" %}
+    <div class="alert alert-danger" role ="alert">
+        {{ alert_message.message }}
+    </div>
+{% endif %}
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Lat, Long</th>
+            <th>Place</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for result in results %}
+            <tr>
+                <td>{{ result.flower_name }}</td>
+                <td>{{ result.lat_num }}, {{ result.long_num }}</td>
+                <td>{{ result.place }}</td>
+                <td>
+                    <a href="{{ url_for('edit', id = result.id)}}" class="btn btn-info">Edit</a>
+                </td>
+                <td>
+                    <a href="{{ url_for('delete', id = result.id)}}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
